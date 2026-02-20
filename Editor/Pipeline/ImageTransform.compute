@@ -1,0 +1,42 @@
+// Compute shader for affine image-to-tensor transformation.
+// Samples the source texture with an affine matrix and writes to an NHWC tensor buffer.
+// Used by PoseEstimator for BlazePose preprocessing.
+
+#pragma kernel ImageTransform
+
+Texture2D<float4> X_tex2D;
+SamplerState samplerX_tex2D;
+
+RWStructuredBuffer<float> Optr;
+
+int O_height;
+int O_width;
+int O_channels;
+
+float4x4 affineMatrix;
+
+[numthreads(8, 8, 1)]
+void ImageTransform(uint3 id : SV_DispatchThreadID)
+{
+    if ((int)id.x >= O_width || (int)id.y >= O_height)
+        return;
+
+    // Map from output tensor coords to source image coords using affine matrix
+    float4 tensorCoord = float4((float)id.x, (float)id.y, 0.0, 1.0);
+    float4 srcCoord = mul(affineMatrix, tensorCoord);
+
+    // Normalize to [0,1] UV coordinates for texture sampling
+    float u = srcCoord.x;
+    float v = srcCoord.y;
+
+    // Sample the source texture (clamp at borders)
+    float4 color = X_tex2D.SampleLevel(samplerX_tex2D, float2(u, v), 0);
+
+    // Write to NHWC buffer: index = (y * width + x) * channels + c
+    int baseIdx = ((int)id.y * O_width + (int)id.x) * O_channels;
+
+    // RGB channels, normalized to [0, 1] (texture already in [0,1])
+    Optr[baseIdx + 0] = color.r;
+    Optr[baseIdx + 1] = color.g;
+    Optr[baseIdx + 2] = color.b;
+}
