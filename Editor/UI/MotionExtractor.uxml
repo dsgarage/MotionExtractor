@@ -1,0 +1,83 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:ScrollView>
+        <ui:VisualElement name="root" class="root-container">
+            <!-- Header -->
+            <ui:VisualElement class="header">
+                <ui:Label text="Motion Extractor" class="title" />
+                <ui:Label text="Extract motion from video files" class="subtitle" />
+            </ui:VisualElement>
+
+            <!-- Input Section -->
+            <ui:VisualElement class="section">
+                <ui:Label text="Input" class="section-title" />
+                <uie:ObjectField name="video-field" label="Video File" allow-scene-objects="false" />
+                <uie:ObjectField name="avatar-field" label="Humanoid Avatar" allow-scene-objects="false" />
+            </ui:VisualElement>
+
+            <!-- Model Assets Section -->
+            <ui:Foldout text="Model Assets" value="false" class="section">
+                <uie:ObjectField name="detector-model-field" label="Detector Model" allow-scene-objects="false" />
+                <uie:ObjectField name="landmark-model-field" label="Landmark Model" allow-scene-objects="false" />
+                <uie:ObjectField name="anchors-field" label="Anchors CSV" allow-scene-objects="false" />
+                <uie:ObjectField name="object-detector-field" label="Object Detector Model" allow-scene-objects="false" />
+                <uie:ObjectField name="compute-shader-field" label="Image Transform Shader" allow-scene-objects="false" />
+            </ui:Foldout>
+
+            <!-- Settings Section -->
+            <ui:VisualElement class="section">
+                <ui:Label text="Settings" class="section-title" />
+
+                <!-- Tracking Mode -->
+                <ui:VisualElement class="radio-group">
+                    <ui:Label text="Mode" class="field-label" />
+                    <ui:RadioButtonGroup name="mode-group" value="2">
+                        <ui:RadioButton label="Person Only" />
+                        <ui:RadioButton label="Objects Only" />
+                        <ui:RadioButton label="Both" />
+                    </ui:RadioButtonGroup>
+                </ui:VisualElement>
+
+                <!-- Quality Slider -->
+                <ui:SliderInt name="quality-slider" label="Frame Skip" value="1" low-value="1" high-value="10" show-input-field="true" />
+                <ui:Label name="quality-hint" text="Process every frame (highest quality)" class="hint-text" />
+
+                <!-- FPS -->
+                <ui:IntegerField name="fps-field" label="Output FPS" value="30" />
+
+                <!-- Output Path -->
+                <ui:TextField name="output-path-field" label="Output Folder" value="Assets/Animations" />
+
+                <!-- Root Motion -->
+                <ui:Toggle name="root-motion-toggle" label="Include Root Motion" value="true" />
+
+                <!-- Foot Lock -->
+                <ui:Toggle name="foot-lock-toggle" label="Apply Foot Lock" value="true" />
+
+                <!-- Smoothing -->
+                <ui:Toggle name="smoothing-toggle" label="Apply Smoothing" value="true" />
+            </ui:VisualElement>
+
+            <!-- Action Button -->
+            <ui:VisualElement class="action-section">
+                <ui:Button name="extract-button" text="Extract Motion" class="extract-button" />
+            </ui:VisualElement>
+
+            <!-- Progress Section -->
+            <ui:VisualElement name="progress-section" class="section" style="display: none;">
+                <ui:Label text="Progress" class="section-title" />
+                <ui:ProgressBar name="progress-bar" title="Ready" />
+                <ui:Label name="progress-detail" text="" class="hint-text" />
+                <ui:Button name="cancel-button" text="Cancel" class="cancel-button" />
+            </ui:VisualElement>
+
+            <!-- Results Section -->
+            <ui:VisualElement name="results-section" class="section" style="display: none;">
+                <ui:Label text="Results" class="section-title" />
+                <ui:VisualElement name="results-list" />
+                <ui:VisualElement class="button-row">
+                    <ui:Button name="open-folder-button" text="Open Folder" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>
