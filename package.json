@@ -1,0 +1,22 @@
+{
+  "name": "jp.dsgarage.MotionExtractor",
+  "version": "0.1.0",
+  "displayName": "MotionExtractor",
+  "description": "MotionExtractor - Unity Editor Extension",
+  "unity": "2021.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "keywords": [
+    "editor",
+    "motion",
+    "extractor"
+  ],
+  "author": {
+    "name": "DSGarage",
+    "url": ""
+  },
+  "type": "tool",
+  "samples": []
+}
