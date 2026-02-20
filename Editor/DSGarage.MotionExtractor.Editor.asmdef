@@ -2,7 +2,11 @@
   "name": "DSGarage.MotionExtractor.Editor",
   "rootNamespace": "DSGarage.MotionExtractor.Editor",
   "references": [
-    "DSGarage.MotionExtractor"
+    "DSGarage.MotionExtractor",
+    "Unity.InferenceEngine",
+    "Unity.Mathematics",
+    "Unity.Collections",
+    "Unity.Burst"
   ],
   "includePlatforms": [
     "Editor"
