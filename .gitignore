@@ -33,3 +33,6 @@ Thumbs.db
 
 # Packages
 *.unitypackage
+
+# Wiki (separate repository)
+wiki/
